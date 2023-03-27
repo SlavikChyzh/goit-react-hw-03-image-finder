@@ -30,12 +30,13 @@ class ImageGallery extends Component {
   }
 
   queryImages = () => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, isLoadMore: false });
     getImages(this.props.search, this.state.page)
       .then(response => {
         if (response.length !== 0) {
           this.setState(prevState => ({
             isLoadMore: true,
+            isLoading: false,
             gallery: [...prevState.gallery, ...response],
           }));
         } else if (response.length === 0) {
@@ -45,12 +46,11 @@ class ImageGallery extends Component {
           });
         }
       })
-
       .catch(error => {
         console.log('error :>> ', error);
       })
       .finally(() => {
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, isLoadMore: true });
       });
   };
 
