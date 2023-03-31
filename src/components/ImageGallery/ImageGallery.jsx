@@ -20,11 +20,12 @@ class ImageGallery extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.search !== this.props.search) {
       this.setState({ page: 1, gallery: [] });
+      if (this.state.page === 1) {
+        this.queryImages();
+        return;
+      }
     }
-    if (
-      prevProps.search !== this.props.search ||
-      prevState.page !== this.state.page
-    ) {
+    if (prevState.page !== this.state.page) {
       this.queryImages();
     }
   }
@@ -50,7 +51,7 @@ class ImageGallery extends Component {
         console.log('error :>> ', error);
       })
       .finally(() => {
-        this.setState({ isLoading: false, isLoadMore: true });
+        this.setState({ isLoading: false });
       });
   };
 

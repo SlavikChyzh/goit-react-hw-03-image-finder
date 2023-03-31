@@ -15,9 +15,7 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.searchbarSubmit} />
-        {this.state.searchWorld && (
-          <ImageGallery search={this.state.searchWorld}></ImageGallery>
-        )}
+        <ImageGallery search={this.state.searchWorld}></ImageGallery>
       </>
     );
   }
